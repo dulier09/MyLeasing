@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using MyLeasing.Web.Data.Entities;
-using System.Threading.Tasks;
+using MyLeasing.Web.Models;
 
 namespace MyLeasing.Web.Helpers
 {
-   public interface IUserHelper
+    public interface IUserHelper
     {
         Task<User> GetUserByEmailAsync(string email);
 
@@ -15,5 +16,11 @@ namespace MyLeasing.Web.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+
+        Task LogoutAsync();
+
+        
     }
 }
