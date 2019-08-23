@@ -7,23 +7,23 @@ namespace MyLeasing.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        [Display(Name = "Neighborhood*")]
+        [Display(Name = "Neighborhood")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Neighborhood { get; set; }
 
 
-        [Display(Name = "Address*")]
+        [Display(Name = "Address")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Address { get; set; }
 
-        [Display(Name = "Price*")]
+        [Display(Name = "Price")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
 
-        [Display(Name = "Square Meters*")]
+        [Display(Name = "Square Meters")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public int SquareMeters { get; set; }
 
@@ -31,7 +31,7 @@ namespace MyLeasing.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public int Rooms { get; set; }
 
-        [Display(Name = "Stratum*")]
+        [Display(Name = "Stratum")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public int Stratum { get; set; }
 

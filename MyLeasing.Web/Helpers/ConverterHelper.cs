@@ -1,9 +1,7 @@
 ﻿using MyLeasing.Web.Data;
 using MyLeasing.Web.Data.Entities;
 using MyLeasing.Web.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyLeasing.Web.Helpers
@@ -11,11 +9,32 @@ namespace MyLeasing.Web.Helpers
     public class ConverterHelper : IConverterHelper
     {
         private readonly DataContext _dataContext;
+        private readonly ICombosHelper _combosHelper;
 
-        public ConverterHelper(DataContext dataContext)
+        public ConverterHelper(
+            DataContext dataContext,
+            ICombosHelper combosHelper)
         {
             _dataContext = dataContext;
+            _combosHelper = combosHelper;
         }
+
+        public async Task<Contract> ToContractAsync(ContractViewModel model, bool isNew)
+        {
+            return new Contract
+            {
+                EndDate = model.EndDate.ToUniversalTime(),
+                Id = isNew ? 0 : model.Id,
+                IsActive = model.IsActive,
+                Lessee = await _dataContext.Lessees.FindAsync(model.LesseeId),
+                Owner = await _dataContext.Owners.FindAsync(model.OwnerId),
+                Price = model.Price,
+                Property = await _dataContext.Properties.FindAsync(model.PropertyId),
+                Remarks = model.Remarks,
+                StartDate = model.StartDate.ToUniversalTime(),
+            };
+        }
+
         public async Task<Property> ToPropertyAsync(PropertyViewModel model, bool isNew)
         {
             return new Property
@@ -29,11 +48,33 @@ namespace MyLeasing.Web.Helpers
                 Owner = await _dataContext.Owners.FindAsync(model.OwnerId),
                 Price = model.Price,
                 PropertyImages = isNew ? new List<PropertyImage>() : model.PropertyImages,
-                PropertyType = await _dataContext.PropertyTypes.FindAsync(model.PropertyTypes),
+                PropertyType = await _dataContext.PropertyTypes.FindAsync(model.PropertyTypeId),
                 Remarks = model.Remarks,
                 Rooms = model.Rooms,
                 SquareMeters = model.SquareMeters,
                 Stratum = model.Stratum
+            };
+        }
+
+        public PropertyViewModel ToPropertyViewModel(Property property)
+        {
+            return new PropertyViewModel
+            {
+                Address = property.Address,
+                HasParkingLot = property.HasParkingLot,
+                Id = property.Id,
+                IsAvailable = property.IsAvailable,
+                Neighborhood = property.Neighborhood,
+                Price = property.Price,
+                Rooms = property.Rooms,
+                SquareMeters = property.SquareMeters,
+                Stratum = property.Stratum,
+                Owner = property.Owner,
+                OwnerId = property.Owner.Id,
+                PropertyType = property.PropertyType,
+                PropertyTypeId = property.PropertyType.Id,
+                PropertyTypes = _combosHelper.GetComboPropertyTypes(),
+                Remarks = property.Remarks,
             };
         }
     }
