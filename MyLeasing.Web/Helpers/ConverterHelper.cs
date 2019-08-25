@@ -81,12 +81,14 @@ namespace MyLeasing.Web.Helpers
             return new PropertyViewModel
             {
                 Address = property.Address,
+                Contracts = property.Contracts,
                 HasParkingLot = property.HasParkingLot,
                 Id = property.Id,
                 IsAvailable = property.IsAvailable,
                 Neighborhood = property.Neighborhood,
                 Price = property.Price,
                 Rooms = property.Rooms,
+                PropertyImages = property.PropertyImages,
                 SquareMeters = property.SquareMeters,
                 Stratum = property.Stratum,
                 Owner = property.Owner,
