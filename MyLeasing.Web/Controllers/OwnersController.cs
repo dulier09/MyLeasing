@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyLeasing.Web.Data;
 using MyLeasing.Web.Data.Entities;
@@ -266,7 +265,7 @@ namespace MyLeasing.Web.Controllers
             var model = _converterHelper.ToPropertyViewModel(property);
             return View(model);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> EditProperty(PropertyViewModel model)
         {
@@ -301,7 +300,7 @@ namespace MyLeasing.Web.Controllers
 
         public async Task<IActionResult> AddImage(int? id)
         {
-            if ( id == null)
+            if (id == null)
             {
                 return NotFound();
             }
