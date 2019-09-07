@@ -1,11 +1,7 @@
 ﻿using MyLeasing.Common.Models;
 using MyLeasing.Common.Services;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MyLeasing.Prism.ViewModels
 {
@@ -21,9 +17,13 @@ namespace MyLeasing.Prism.ViewModels
             INavigationService navigationService,
             IApiService apiService) : base(navigationService)
         {
+            _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
-            _apiService = apiService;
+
+            //TODO: delete this lines
+            Email = "jzuluaga55@hotmail.com";
+            Password = "123456";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
@@ -83,6 +83,8 @@ namespace MyLeasing.Prism.ViewModels
                 Password = string.Empty;
                 return;
             }
+
+            var token = response.Result;
 
             await App.Current.MainPage.DisplayAlert("Ok", "Fuck yeah!!.", "Accept");
         }
